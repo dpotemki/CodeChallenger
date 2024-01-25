@@ -1,0 +1,79 @@
+﻿@{
+    Layout = null;
+}
+@model CodeExecutionContracts.Models.CompilationResult;
+
+<div class="test-result">
+    <h2>Compilation Result</h2>
+
+    <div class="result-details">
+        <p>
+            <strong>Result:</strong>
+            <span class="status">@(Model.IsSuccessful ? "Success" : "Failed")</span>
+        </p>
+
+        @if (Model.TestCase != null && Model.TestCase.Any())
+        {
+            <p>
+                <strong>Test Case:</strong>
+                @string.Join("; ", Model.TestCase.Select(z => z.Value))
+            </p>
+
+
+            <div>
+                <strong>Expected Result:</strong> @Model.ExpectedResult?.Value
+            </div>
+            <div>
+                <strong>Received Result:</strong> @Model.ActualResult?.Value
+            </div>
+        }
+
+        <p><strong>Execution Time:</strong> @Model.ExecutionTime.TotalSeconds sec</p>
+        <p><strong>Memory Usage:</strong> @Model.MemoryUsageInBytes / 1024 KB</p>
+        <p><strong>Total Test Cases:</strong> @Model.TestCasesCount</p>
+        <p><strong>Passed Test Cases:</strong> @Model.PassedTestCasesCount</p>
+
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="error-message">
+                <strong>Error Message:</strong> @Model.ErrorMessage
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.CompilationErrorMessage))
+        {
+            <div class="compilation-error">
+                <strong>Compilation Error:</strong> @Model.CompilationErrorMessage
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .test-result {
+        background-color: #f7f7f7;
+        border: 1px solid #ddd;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .result-details {
+        margin-top: 10px;
+    }
+
+    .status {
+        font-weight: bold;
+        color: green;
+    }
+
+        .status.failed {
+            color: red;
+        }
+
+    .error-message, .compilation-error {
+        color: red;
+        margin-top: 10px;
+    }
+
+</style>

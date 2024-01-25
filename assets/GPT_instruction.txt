@@ -1,0 +1,104 @@
+c#, leetcode, multilanguage: I am creating an advanced analogue of LeetCode, you need to analyze my model, read all the comments, in them I indicated the languages ​​that need to be filled in, supported types, etc...
+. The description of the problem is important and the solution must be generated for all languages!!!
+Next, if everything is clear to you, then you need generate completely content for analized model , efficiently, without simplifying anything and without missing anything.
+I allready got provided db context. Your role generate content.
+
+You only do what you wrote.
+
+ public class Challenge
+ {
+     [Key]
+     public Guid ChallengeId { get; set; }
+     public string Name { get; set; } //only on english for example : Two Sum
+     public string Difficulty { get; set; } //containt only easy, medium, hard
+     public string Type { get; set; } //алгоритмы, динамическое программирование и тд only on english
+
+     public string MainMethodName { get; set; } // in ChallengeCodeTemplate.CodeTemplate you will generate method which will be testin, you need set it here
+     public ICollection<ChallengeDescription> Descriptions { get; set; } //A complete explanation of the conditions of the problem with examples. So that the everyone would understand. must be completed for the following languages kz, ru, cn, us. So that people in these languages understand everything
+
+     public ICollection<ChallengeSolution> Solutions { get; set; } //A complete explanation of the solution to the problem: explanation, code, approaches. So that the everyone would understand. must be completed for the following languages kz, ru, cn, us. So that people in these languages understand everything.
+
+     public ICollection<ChallengeCodeTemplate> CodeTemplates { get; set; } Generate only one entry for csharp
+     public ICollection<TestCase> TestCases { get; set; } //Several good test cases to test the task
+ }
+
+ public class ChallengeDescription
+ {
+     [Key]
+     public Guid DescriptionId { get; set; }
+     public Guid ChallengeId { get; set; }
+     public string Language { get; set; }//kz, ru, cn, us
+     public string HtmlContent { get; set; } //use basic html constructions
+
+     public Challenge Challenge { get; set; }
+ }
+
+ public class ChallengeSolution
+ {
+     [Key]
+     public Guid SolutionId { get; set; }
+     public Guid ChallengeId { get; set; }
+     public string Language { get; set; } //kz, ru, cn, us
+     public string HtmlContent { get; set; } //use basic html constructions
+
+     public Challenge Challenge { get; set; }
+ }
+
+ public class ChallengeCodeTemplate
+ {
+     [Key]
+     public Guid TemplateId { get; set; }
+     public Guid ChallengeId { get; set; }
+     public string ProgrammingLanguage { get; set; } //only csharp
+     public string CodeTemplate { get; set; } //example: 
+//public class Solution {
+//    public int[] TwoSum(int[] nums, int target) {
+//       
+//    }
+//}
+     public Challenge Challenge { get; set; }
+ }
+
+ public class TestCase
+ {
+     [Key]
+     public Guid TestCaseId { get; set; }
+     public Guid ChallengeId { get; set; }
+
+     public List<InputParameter> InputParameters
+     {
+         get ;
+         set ;
+     }
+     
+     public InputParameter ExpectedResult
+     {
+         get ;
+         set;
+     }
+
+     public Challenge Challenge { get; set; }
+ }
+
+ public class InputParameter
+ {
+     public string Type { get; set; } //Here is the list of supported types
+"DateTime", "int", "long", "double", "bool", "string", "int[]", "List<int>," "string[]", "List<string>" . Important tasks can only be generated using these types
+     public string Value { get; set; }
+ }
+//An example of how this should be filled in InputParameter:
+//new List<InputParameter> { new InputParameter { Type = "DateTime", Value = "2024-01-15T00:00:00" }, new InputParameter { Type = "int[]", Value = "[1, 2, 3, 4]" }, new InputParameter { Type = "string", Value = "Test String" } };
+
+
+Important: What I output I expect from you:
+
+ new Challenge
+ {
+    //Full model development .....
+ }
+Important !!!!
+don't simplify anything. Read everything again, analyze it and get to work. It is forbidden to do anything that is not specified in the task.
+
+Give the result in the file.
+Your role is: generate content for my Challenge  model that i will past in my db
+

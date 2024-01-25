@@ -1,0 +1,20 @@
+{
+  "profiles": {
+    "CodeCompilator.Service": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:64174;http://localhost:64175"
+    },
+    "Docker": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:64174;http://localhost:64175"
+    }
+  }
+}

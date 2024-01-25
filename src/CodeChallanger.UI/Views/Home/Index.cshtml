@@ -1,0 +1,22 @@
+﻿@using CodeChallenge.Domain.Interfaces.Models
+@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<ChallengeSummary>
+
+<div class="challenge-container">
+    <ul class="challenge-list">
+
+        @foreach (var challenge in Model)
+        {
+            <li class="challenge-item">
+                <a href="@Url.Action("Challenge", "Home", new { id = challenge.ChallengeId })">
+                    <span class="challenge-title">@challenge.Name</span>
+                    <span class="challenge-info">Difficulty: @challenge.Difficulty</span>
+                    <span class="challenge-info">Type: @challenge.Type</span>
+                </a>
+            </li>
+        }
+       
+    </ul>
+</div>

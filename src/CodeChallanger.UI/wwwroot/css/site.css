@@ -1,0 +1,231 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+
+/*StartMainPage*/
+.challenge-container {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.challenge-list {
+    list-style: none;
+    padding: 0;
+}
+
+.challenge-item {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    transition: box-shadow 0.3s ease;
+}
+
+    .challenge-item a {
+        text-decoration: none;
+        color: #333;
+        display: block;
+    }
+
+.challenge-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.challenge-info {
+    font-size: 14px;
+    color: #666;
+}
+
+.challenge-item:hover {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/*End main page*/
+
+/*Start challenge page*/
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+}
+
+.content {
+    display: flex;
+    margin-top: 20px;
+}
+
+.countyImage {
+    width: 30px;
+    height: 30px;
+}
+
+.code-editor {
+    white-space: pre-wrap;
+    word-break: break-word;
+    contenteditable: true;
+}
+
+#reset-button {
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+    #reset-button:hover {
+        background-color: #d32f2f;
+    }
+
+
+.left-panel, .right-panel {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin: 5px;
+}
+
+.tab {
+    overflow: hidden;
+}
+
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+    }
+
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+}
+
+.code-editor {
+    width: 100%;
+    height: 90%;
+}
+
+.run-button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+    .run-button:hover {
+        background-color: #45a049;
+    }
+
+
+/* loaderWithModal section */
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    text-align: right;
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+/*End challengePage*/

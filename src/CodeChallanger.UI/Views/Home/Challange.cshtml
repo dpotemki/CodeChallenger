@@ -1,0 +1,142 @@
+﻿@{
+    ViewData["Title"] = "Challenge";
+}
+@using CodeChallenge.Domain.Interfaces.Models
+@model ChallengeDetail
+
+
+<div class="header">
+    <a href="@Model.ChallengeId?lang=kz"><img class="countyImage" src="~/images/kz-flag.png" alt="KZ"></a>
+    <a href="@Model.ChallengeId?lang=ru"><img class="countyImage" src="~/images/ru-flag.png" alt="RU"></a>
+    <a href="@Model.ChallengeId?lang=cn"><img class="countyImage" src="~/images/cn-flag.png" alt="CN"></a>
+    <a href="@Model.ChallengeId?lang=us"><img class="countyImage" src="~/images/us-flag.png" alt="US"></a>
+    <h1>Challenge Name</h1>
+</div>
+<div class="content">
+    <div class="left-panel">
+
+        <input id="challengeId" value="@Model.ChallengeId" type="hidden" />
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'Description')">
+                Description</butto>
+                <button class="tablinks" onclick="openTab(event, 'Solution')">Solution</button>
+        </div>
+
+        <div id="Description" class="tabcontent" style="display: block;">
+            <h5>Description Details</h5>
+            <p>@Html.Raw(Model.Description)</p>
+        </div>
+
+        <div id="Solution" class="tabcontent">
+
+            <h5>Solution  Details</h5>
+
+            <p>@Html.Raw(Model.Solution)</p>
+        </div>
+    </div>
+
+    <div class="right-panel">
+        <button class="run-button">Run</button>
+        <button id="reset-button">Reset</button>
+
+        <pre><code class="language-csharp csharp code-editor" contenteditable="true">
+            @Html.Raw(Model.CodeTemplate)
+
+        </code></pre>
+
+    </div>
+</div>
+
+@* Loader with modal *@
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="modal-text"></p>
+    </div>
+</div>
+
+<div id="loader" class="loader" style="display:none;"></div>
+
+
+
+<script>
+
+
+    document.getElementById('reset-button').addEventListener('click', function () {
+        var challengeId = document.getElementById('challengeId')
+
+        localStorage.removeItem(challengeId.value);
+        location.reload();
+    });
+
+    //BL services section
+
+    document.querySelector('.run-button').addEventListener('click', function () {
+        this.disabled = true;
+        document.getElementById('loader').style.display = 'block';
+        var challengeId = document.getElementById('challengeId').value
+        const userCode = document.querySelector('.code-editor').textContent; //document.querySelector('.code-editor').value;
+
+        // Отправьте код пользователя и ID задачи на сервер
+        fetch('/api/challange/run', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ code: userCode, challengeId: challengeId })
+        })
+            .then(response => response.json())
+            .then(data => checkStatus(data.executionId))
+            // .then(data => checkStatus(data.value))
+
+            .catch(error => console.error('Error:', error));
+    });
+
+    function checkStatus(executionId) {
+        fetch(`/api/challange/status/${executionId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'Pending') {
+                    setTimeout(() => checkStatus(executionId), 1000);
+                } else if (data.status === 'Completed') {
+                    fetchResult(executionId);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function fetchResult(executionId) {
+        fetch(`/api/challange/result/${executionId}`)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('modal-text').innerHTML = html;
+                document.getElementById('modal').style.display = 'block';
+                document.querySelector('.run-button').disabled = false;
+                document.getElementById('loader').style.display = 'none';
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Закрытие модального окна
+    document.querySelector('.close').addEventListener('click', function () {
+        document.getElementById('modal').style.display = 'none';
+    });
+
+    //Loader with modal section
+
+
+
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
