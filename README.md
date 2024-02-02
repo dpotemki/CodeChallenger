@@ -22,7 +22,7 @@
 
 ### Architecture
 
-![Service workflow diagram](assets/challenger_schema.png)
+![Service workflow diagram](assets/challenger.svg)
 
 The diagram demonstrates the task processing flow: from submitting the solution to receiving the results.
 
@@ -66,7 +66,7 @@ For any questions or suggestions, feel free to reach out through the GitHub issu
 
 ### Архитектура
 
-![Схема работы сервиса](assets/challenger_schema.png)
+![Схема работы сервиса](assets/challenger.svg)
 
 Диаграмма демонстрирует поток обработки задач: от отправки решения до получения результатов.
 
